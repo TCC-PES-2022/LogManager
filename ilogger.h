@@ -10,6 +10,11 @@
 
 #define LOG_FILE "ariel.log"
 
+static const char *tags_names[] = {
+	"DEBUG", "AUTHENTICATION", "COMMUNICATION MANAGER", "IMAGE", "UI",
+	"GUI", "UNKNOWN"
+};
+
 /* module to log */
 typedef enum module_tags {
 	LG_DEBUG                 = 0,

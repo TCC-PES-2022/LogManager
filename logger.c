@@ -6,7 +6,7 @@
 
 Logger_status logToFile(Tags, const char *, ...);
 char *getLog(void);
-static char *tags(int);
+static const char *tags(int);
 static char *wday(int);
 static int month(int);
 static int year(int);
@@ -80,30 +80,30 @@ getLog(void)
 
 /************************** Convertion functions ******************************/
 
-static char *
+static const char *
 tags(int tag)
 {
 	switch (tag) {
-		case LG_DEBUG:
-			return "DEBUG";
+		case 0:
+			return tags_names[0];
 			break;
-		case LG_AUTHENTICATION:
-			return "AUTHENTICATION";
+		case 1:
+			return tags_names[1];
 			break;
-		case LG_COMMUNICATION_MANAGER:
-			return "COMMUNICATION MANAGER";
+		case 2:
+			return tags_names[2];
 			break;
-		case LG_IMAGE:
-			return "IMAGE";
+		case 3:
+			return tags_names[3];
 			break;
-		case LG_UI:
-			return "UI";
+		case 4:
+			return tags_names[4];
 			break;
-		case LG_GUI:
-			return "GUI";
+		case 5:
+			return tags_names[5];
 			break;
 		default:
-			return "UNKNOWN";
+			return tags_names[6];
 			break;
 	}
 	/* unreacheable */

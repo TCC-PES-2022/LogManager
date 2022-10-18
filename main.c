@@ -9,6 +9,7 @@ main(void)
 	/* Examples of use */
 	logToFile(LG_AUTHENTICATION, "%s %s", login, "authenticated");
 	logToFile(LG_IMAGE, "%s %s %s %s", login, "transfered", PN, "image");
+	logToFile(LG_COMMUNICATION_MANAGER, "%s %s %s %s", login, "transfered", PN, "image");
 	log = getLog();
 	puts(log);
 
