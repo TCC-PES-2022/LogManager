@@ -94,7 +94,7 @@ tags(int tag)
 			return "COMMUNICATION MANAGER";
 			break;
 		case LG_IMAGE:
-			return "TRANSFER IMAGE";
+			return "IMAGE";
 			break;
 		case LG_UI:
 			return "UI";
