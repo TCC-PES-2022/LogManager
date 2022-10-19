@@ -4,8 +4,7 @@
 /* FUNCTION DECLARATIONS */
 /*************************/
 
-Logger_status logToFile(Tags, const char *, ...);
-char *getLog(void);
+Logger_status logger(Tags, const char *, ...);
 static const char *tags(int);
 static char *wday(int);
 static int month(int);
@@ -16,7 +15,7 @@ static int year(int);
 /********************/
 
 Logger_status
-logToFile(Tags tag, const char *message, ...)
+logger(Tags tag, const char *message, ...)
 {
 	char log_string[LOG_SIZE];
 	time_t rawtime;
@@ -47,31 +46,6 @@ logToFile(Tags tag, const char *message, ...)
 	fclose(log_file);
 
 	return LG_OK;
-}
-
-char *
-getLog(void)
-{
-	char *ret;
-	long file_size;
-	FILE *log_file;
-
-	log_file = fopen(LOG_FILE, "r");
-
-	/* get size of file */
-	fseek(log_file, 0, SEEK_END);
-	file_size = ftell(log_file);
-	rewind(log_file);
-
-	/* DYNAMIC MEMORY ALLOCATION */
-	ret = (char *) malloc(sizeof(char) * file_size);
-
-	/* get file content */
-	fread(ret, 1, file_size, log_file);
-
-	fclose(log_file);
-
-	return ret;
 }
 
 /********************/

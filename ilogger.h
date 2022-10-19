@@ -10,12 +10,13 @@
 
 #define LOG_FILE "ariel.log"
 
+/* Name of available Tags - change as needed */
 static const char *tags_names[] = {
 	"DEBUG", "AUTHENTICATION", "COMMUNICATION MANAGER", "IMAGE", "UI",
 	"GUI", "UNKNOWN"
 };
 
-/* module to log */
+/* Tags - change as needed */
 typedef enum module_tags {
 	LG_DEBUG                 = 0,
 	LG_AUTHENTICATION        = 1,
@@ -25,13 +26,17 @@ typedef enum module_tags {
 	LG_GUI                   = 5
 } Tags;
 
+/* Log system status return */
 typedef enum logger_system {
 	LG_OK    = 0,
 	LG_ERROR = 1
 } Logger_status;
 
-/* extern functions */
-Logger_status logToFile(Tags, const char *, ...);
-char *getLog(void); /* DYNAMIC MEMORY ALLOCATION HERE!! DESALLOCATE AFTER USE */
+/********************/
+/* EXTERN FUNCTIONS */
+/********************/
+
+/* logger(tag number, string, ...) */
+Logger_status logger(Tags, const char *, ...);
 
 #endif
