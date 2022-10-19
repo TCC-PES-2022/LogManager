@@ -11,7 +11,7 @@ HEADER = ilogger
 OBJ    = logger\
          main
 
-SOBJ   = logger
+SOBJ   = liblogger
 
 LIB    = $(SOBJ:=.so)
 
@@ -45,6 +45,6 @@ uninstall:
 	rm -f $(DEST)/bin/$(BIN)
 
 clean:
-	rm -f $(BIN) modules/*.o *.o *.so
+	rm -f $(BIN) modules/*.o *.o *.so *.a
 
 .PHONY: install uninstall clean run move
