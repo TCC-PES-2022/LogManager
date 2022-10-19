@@ -1,6 +1,7 @@
 BIN      = log
 CC       = cc
-CFLAGS   = -Wall -Wextra -O3 -march=native
+AR       = ar
+CFLAGS   = -Wall -Wextra -O3 -march=native -fPIC
 LFLAGS   = -shared
 LIBDEST  = ${HOME}/pes/lib
 INCDEST  = ${HOME}/pes/include
@@ -12,11 +13,11 @@ OBJ    = logger\
 
 SOBJ   = logger
 
-SLIB   = $(SOBJ:=.so)
+LIB    = $(SOBJ:=.so)
 
 default: $(BIN)
 
-shared: $(SLIB)
+lib: $(LIB)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -24,11 +25,12 @@ shared: $(SLIB)
 $(BIN): $(OBJ:=.o) $(HEADER:=.h)
 	$(CC) $(OBJ:=.o) -o $@
 
-$(SLIB): $(OBJ:=.o)
+$(LIB): $(OBJ:=.o)
 	$(CC) $(LFLAGS) $^ -o $@
+	$(AR) -rc $(SOBJ:=.a) $^
 
 move:
-	cp -f $(SOBJ:=.so) $(LIBDEST)
+	cp -f $(SOBJ:=.so) $(SOBJ:=.a) $(LIBDEST)
 	cp -f $(HEADER:=.h) $(INCDEST)
 
 run: default
