@@ -2,35 +2,46 @@ BIN      = log
 CC       = cc
 AR       = ar
 CFLAGS   = -Wall -Wextra -O3 -march=native -fPIC
-LFLAGS   = -shared
 LIBDEST  = ${HOME}/pes/lib
 INCDEST  = ${HOME}/pes/include
 
 HEADER = ilogger
 
-OBJ    = logger\
-         main
+MAIN   = main
 
-SOBJ   = liblogger
+OBJ    = logger
 
-LIB    = $(SOBJ:=.so)
+LIB    = liblogger
+
+# Dynamic library
+DLIB   = $(LIB:=.so)
+# Static library
+SLIB   = $(LIB:=.a)
 
 default: $(BIN)
 
-lib: $(LIB)
+lib : slib dlib
+slib: $(SLIB)
+dlib: $(DLIB)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BIN): $(OBJ:=.o) $(HEADER:=.h)
-	$(CC) $(OBJ:=.o) -o $@
+$(BIN): $(OBJ:=.o) $(MAIN:=.o) $(HEADER:=.h)
+	$(CC) $^ -o $@
 
-$(LIB): $(OBJ:=.o)
-	$(CC) $(LFLAGS) $^ -o $@
-	$(AR) -rc $(SOBJ:=.a) $^
+# Generate dynamic library rule
+$(DLIB): $(OBJ:=.o)
+	$(CC) -shared $^ -o $@
+
+# Generate static library rule
+$(SLIB): $(OBJ:=.o)
+	$(AR) -rcs $@ $^
 
 move:
-	cp -f $(SOBJ:=.so) $(SOBJ:=.a) $(LIBDEST)
+	mkdir -p $(LIBDEST)
+	mkdir -p $(LIBDEST)
+	cp -f $(DLIB) $(SLIB) $(LIBDEST)
 	cp -f $(HEADER:=.h) $(INCDEST)
 
 run: default
@@ -47,4 +58,4 @@ uninstall:
 clean:
 	rm -f $(BIN) modules/*.o *.o *.so *.a
 
-.PHONY: install uninstall clean run move
+.PHONY: install uninstall clean run move lib slib dlib
