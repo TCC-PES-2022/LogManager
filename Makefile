@@ -1,11 +1,22 @@
-BIN    = log
-CC     = cc
-CFLAGS = -Wall -Wextra -O3 -march=native
+BIN      = log
+CC       = cc
+CFLAGS   = -Wall -Wextra -O3 -march=native
+LFLAGS   = -shared
+LIBDEST  = ${HOME}/pes/lib
+INCDEST  = ${HOME}/pes/include
 
 HEADER = ilogger
 
 OBJ    = logger\
          main
+
+SOBJ   = logger
+
+SLIB   = $(SOBJ:=.so)
+
+default: $(BIN)
+
+shared: $(SLIB)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -13,7 +24,12 @@ OBJ    = logger\
 $(BIN): $(OBJ:=.o) $(HEADER:=.h)
 	$(CC) $(OBJ:=.o) -o $@
 
-default: $(BIN)
+$(SLIB): $(OBJ:=.o)
+	$(CC) $(LFLAGS) $^ -o $@
+
+move:
+	cp -f $(SOBJ:=.so) $(LIBDEST)
+	cp -f $(HEADER:=.h) $(INCDEST)
 
 run: default
 	@./log
@@ -27,6 +43,6 @@ uninstall:
 	rm -f $(DEST)/bin/$(BIN)
 
 clean:
-	rm -f $(BIN) modules/*.o *.o
+	rm -f $(BIN) modules/*.o *.o *.so
 
-.PHONY: install uninstall clean 
+.PHONY: install uninstall clean run move
