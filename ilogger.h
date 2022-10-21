@@ -1,6 +1,10 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -36,7 +40,11 @@ typedef enum logger_system {
 /* EXTERN FUNCTIONS */
 /********************/
 
-/* logger(tag number, string, ...) */
+/* logger(tag number, string format, ...) */
 Logger_status logger(Tags, const char *, ...);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
