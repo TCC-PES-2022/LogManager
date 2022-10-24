@@ -12,7 +12,7 @@ extern "C" {
 
 #define LOG_SIZE 256
 
-#define LOG_FILE "ariel.log"
+#define LOG_FILE "~/pes/log/ariel.log"
 
 /* Name of available Tags - change as needed */
 static const char *tags_names[] = {
