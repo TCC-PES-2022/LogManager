@@ -14,4 +14,4 @@ MAIN   = main
 
 OBJ    = log
 
-LIB    = liblogger
+LIB    = liblog
