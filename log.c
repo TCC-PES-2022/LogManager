@@ -17,14 +17,18 @@ static int year(int);
 Logger_status
 logger(Tags tag, const char *message, ...)
 {
+	char path[64];
 	char log_string[LOG_SIZE];
 	time_t rawtime;
 	struct tm *info;
 	FILE *log_file;
 	va_list pargs;
 
+	strcpy(path, getenv("HOME"));
+	strcat(path, LOG_FILE);
+
 	/* open log file */
-	log_file = fopen(LOG_FILE, "ab+");
+	log_file = fopen(path, "ab+");
 	if (!log_file)
 		return LG_ERROR;
 
